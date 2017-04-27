@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
@@ -34,7 +35,17 @@ public class Civ6MenuApp extends Application {
 	private Line line;
 	
 	private Parent createContent() {
+		addBackground();
+		
 		return root;
+	}
+	
+	private void addBackground() {
+		ImageView imageView = new ImageView(getClass().getResource("res/Civ6_bg.png").toExternalForm());
+		imageView.setFitWidth(WIDTH);
+		imageView.setFitHeight(HEIGHT);
+		
+		root.getChildren().add(imageView);
 	}
 	
 	@Override
