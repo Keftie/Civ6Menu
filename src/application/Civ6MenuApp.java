@@ -7,9 +7,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -38,6 +40,11 @@ public class Civ6MenuApp extends Application {
 		addBackground();
 		addTitle();
 		
+		double lineX = WIDTH / 2 - 100;
+		double lineY = HEIGHT / 3 + 50;
+		
+		addLine(lineX, lineY);
+		
 		return root;
 	}
 	
@@ -55,6 +62,16 @@ public class Civ6MenuApp extends Application {
 		title.setTranslateY(HEIGHT / 3);
 		
 		root.getChildren().add(title);
+	}
+	
+	private void addLine(double x, double y) {
+		line = new Line(x, y, x, y + 300);
+		line.setStrokeWidth(3);
+		line.setStroke(Color.color(1, 1, 1, 0.75));
+		line.setEffect(new DropShadow(5, Color.BLACK));
+		line.setScaleY(0);
+		
+		root.getChildren().add(line);
 	}
 	
 	@Override
