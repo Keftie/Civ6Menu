@@ -3,8 +3,11 @@ package application;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
@@ -15,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 public class Civ6MenuApp extends Application {
@@ -47,6 +51,8 @@ public class Civ6MenuApp extends Application {
 		addLine(lineX, lineY);
 		addMenu(lineX + 5, lineY + 5);
 		
+		startAnimation();
+		
 		return root;
 	}
 	
@@ -74,6 +80,23 @@ public class Civ6MenuApp extends Application {
 		line.setScaleY(0);
 		
 		root.getChildren().add(line);
+	}
+	
+	private void startAnimation() {
+		ScaleTransition st = new ScaleTransition(Duration.seconds(1), line);
+		st.setToY(1);
+		st.setOnFinished(e -> {
+			
+			for(int i = 0; i < menuBox.getChildren().size(); i++) {
+				Node n = menuBox.getChildren().get(i);
+				
+				TranslateTransition tt = new TranslateTransition(Duration.seconds(1 + i * 0.15), n);
+				tt.setToX(0);
+				tt.setOnFinished(e2 -> n.setClip(null));
+				tt.play();
+			}
+		});
+		st.play();
 	}
 	
 	private void addMenu(double x, double y) {
