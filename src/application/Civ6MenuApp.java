@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -44,6 +45,7 @@ public class Civ6MenuApp extends Application {
 		double lineY = HEIGHT / 3 + 50;
 		
 		addLine(lineX, lineY);
+		addMenu(lineX + 5, lineY + 5);
 		
 		return root;
 	}
@@ -72,6 +74,25 @@ public class Civ6MenuApp extends Application {
 		line.setScaleY(0);
 		
 		root.getChildren().add(line);
+	}
+	
+	private void addMenu(double x, double y) {
+		menuBox.setTranslateX(x);
+		menuBox.setTranslateY(y);
+		menuData.forEach(data -> {
+			Civ6MenuItem item = new Civ6MenuItem(data.getKey());
+			item.setOnAction(data.getValue());
+			item.setTranslateX(-300);
+			
+			Rectangle clip = new Rectangle(300, 30);
+			clip.translateXProperty().bind(item.translateXProperty().negate());
+			
+			item.setClip(clip);
+			
+			menuBox.getChildren().addAll(item);
+		});
+		
+		root.getChildren().add(menuBox);
 	}
 	
 	@Override
