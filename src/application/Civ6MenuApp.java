@@ -36,6 +36,7 @@ public class Civ6MenuApp extends Application {
 	
 	private Parent createContent() {
 		addBackground();
+		addTitle();
 		
 		return root;
 	}
@@ -46,6 +47,14 @@ public class Civ6MenuApp extends Application {
 		imageView.setFitHeight(HEIGHT);
 		
 		root.getChildren().add(imageView);
+	}
+	
+	private void addTitle() {
+		Civ6Title title = new Civ6Title("CIVILIZATION VI");
+		title.setTranslateX(WIDTH / 2 - title.getTitleWidth() / 2);
+		title.setTranslateY(HEIGHT / 3);
+		
+		root.getChildren().add(title);
 	}
 	
 	@Override
